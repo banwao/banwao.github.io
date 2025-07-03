@@ -1,0 +1,1041 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+    --primary: #7c3aed;
+    --secondary: #ec4899;
+    --accent: #06b6d4;
+    --dark: #18181b;
+    --light: #fafafa;
+    --gray: #71717a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+    text-transform: lowercase;
+}
+
+body {
+    background: var(--dark);
+    color: var(--light);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* App container */
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: rgba(24, 24, 27, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 100;
+    flex-shrink: 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: var(--light);
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: grey;
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav {
+    flex: 1;
+}
+
+.nav-item {
+    padding: 0.75rem 0;
+    opacity: 0.5;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    opacity: 1;
+}
+
+.nav-item.active {
+    opacity: 1;
+    color: var(--primary);
+}
+
+.social {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.social a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.social a:hover {
+    color: var(--light);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 4rem;
+    position: relative;
+}
+
+.btn {
+    padding: 0.625rem 1.25rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-size: 0.875rem;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--light);
+}
+
+.btn-primary:hover {
+    background: #6d28d9;
+    transform: translateY(-1px);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--light);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 800px;
+}
+
+.title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.title-gradient {
+    /* Fallback color for browsers that don't support background-clip: text */
+    color: var(--light);
+    background: linear-gradient(
+        90deg,
+        var(--light) 0%,
+        var(--primary) 25%,
+        var(--accent) 50%,
+        var(--light) 75%,
+        var(--primary) 100%
+    );
+    background-size: 200% auto;
+    /* Use feature detection for better browser support */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Ensure the element has content and proper display */
+    display: inline-block;
+    animation: shimmer 8s ease-in-out infinite;
+}
+
+/* Make sure nested elements inherit the gradient effect */
+.title-gradient .shuffle-text {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    background: inherit;
+    background-clip: inherit;
+    -webkit-background-clip: inherit;
+    display: inline;
+}
+
+/* Keep exclamation mark simple without gradient */
+.title-gradient .animated-exclamation {
+    color: var(--light);
+    -webkit-text-fill-color: var(--light);
+    background: none;
+    display: inline-block;
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (-webkit-background-clip: text) {
+    .title-gradient,
+    .title-gradient .shuffle-text {
+        color: var(--light) !important;
+        background: none !important;
+        -webkit-text-fill-color: initial !important;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.description {
+    color: var(--gray);
+    margin-bottom: 2.5rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    max-width: 600px;
+    font-weight: 400;
+}
+
+/* Glow effect on cards */
+.service-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 2rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* Animated border effect - always visible */
+.service-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(
+        45deg,
+        var(--primary),
+        var(--secondary),
+        var(--accent),
+        var(--primary)
+    );
+    background-size: 400% 400%;
+    z-index: -1;
+    animation: borderAnimation 8s ease infinite;
+    border-radius: 14px;
+    opacity: 0.5; /* Always visible but subtle */
+    transition: opacity 0.3s ease;
+}
+
+/* Inner background to hide gradient behind card */
+.service-card::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: var(--dark);
+    border-radius: 11px;
+    z-index: -1;
+}
+
+@keyframes borderAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Enhance border on hover */
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Glow effect - always visible but subtle */
+.service-card .glow-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at var(--mouse-x) var(--mouse-y),
+        rgba(124, 58, 237, 0.05) 0%,
+        transparent 50%
+    );
+    opacity: 0.3; /* Always visible but subtle */
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Enhance glow on hover */
+.service-card:hover .glow-effect {
+    opacity: 0.5;
+}
+
+/* Shine effect - only on hover */
+.service-card .shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: 0.5s;
+    z-index: 2;
+    opacity: 0;
+}
+
+.service-card:hover .shine {
+    opacity: 1;
+    animation: shine 1.5s ease-in-out;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    20% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.service-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.service-desc {
+    color: var(--gray);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
+}
+
+/* Services Section */
+.services-section {
+    padding: 6rem 4rem;
+}
+
+.section-header {
+    margin-bottom: 4rem;
+    max-width: 600px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.section-desc {
+    color: var(--gray);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+}
+
+/* Portfolio Section */
+.portfolio-section {
+    padding: 6rem 4rem;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+}
+
+.portfolio-item {
+    position: relative;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #222;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.portfolio-image-container {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    overflow: hidden;
+    will-change: transform;
+}
+
+.portfolio-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+    will-change: transform;
+}
+
+.portfolio-item:hover .portfolio-image {
+    opacity: 1;
+}
+
+.portfolio-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+    transform: translateZ(20px);
+    z-index: 2;
+}
+
+.portfolio-category {
+    color: var(--primary);
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.portfolio-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--light);
+}
+
+.portfolio-link {
+    color: var(--light);
+    font-size: 0.875rem;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.portfolio-item:hover .portfolio-link {
+    opacity: 1;
+    color: var(--primary);
+    transform: translateX(4px);
+}
+
+/* Remove any default link styles */
+.portfolio-item:focus {
+    outline: none;
+}
+
+.portfolio-item:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.portfolio-item::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at var(--mouse-x) var(--mouse-y),
+        rgba(124, 58, 237, 0.15) 0%,
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.portfolio-item:hover::after {
+    opacity: 1;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-8px) scale(0.98);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Process Section */
+.process-section {
+    padding: 6rem 4rem;
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    max-width: 1200px;
+    margin-top: 4rem;
+}
+
+.process-step {
+    position: relative;
+}
+
+.process-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    opacity: 0.3;
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+.process-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.process-desc {
+    color: var(--gray);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 8rem 4rem;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(124, 58, 237, 0.05)
+    );
+}
+
+/* Floating Contact Button */
+.floating-contact-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: rgba(24, 24, 27, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--light);
+    cursor: pointer;
+    z-index: 9999;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(20px);
+    text-decoration: none;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.floating-contact-btn:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(24, 24, 27, 1);
+}
+
+.floating-contact-btn.hidden {
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+}
+
+/* Contact icon */
+.contact-icon {
+    width: 1rem;
+    height: 1rem;
+    color: #ffaa40;
+    flex-shrink: 0;
+}
+
+/* Separator */
+.contact-separator {
+    width: 1px;
+    height: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+}
+
+/* Contact text with gradient */
+.contact-text {
+    background: linear-gradient(
+        90deg,
+        #ffaa40 0%,
+        #9c40ff 50%,
+        #ffaa40 100%
+    );
+    background-size: var(--bg-size) 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-animation 3s ease infinite;
+    white-space: nowrap;
+}
+
+/* Arrow icon */
+.contact-arrow {
+    width: 0.75rem;
+    height: 0.75rem;
+    color: #9c40ff;
+    transition: all 0.3s ease;
+}
+
+.contact-arrow .arrow-line {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.contact-arrow .arrow-path {
+    transition: transform 0.3s ease;
+}
+
+.floating-contact-btn:hover .contact-arrow .arrow-line {
+    opacity: 1;
+}
+
+.floating-contact-btn:hover .contact-arrow .arrow-path {
+    transform: translateX(3px);
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.contact-content {
+    max-width: 600px;
+}
+
+.contact-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.contact-desc {
+    color: var(--gray);
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.contact-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Simple cursor dot */
+@media (pointer: fine) {
+    .cursor-dot {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--primary);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9999;
+        transition: transform 0.1s ease;
+        mix-blend-mode: difference;
+    }
+}
+
+@media (pointer: coarse) {
+    .cursor-dot {
+        display: none;
+    }
+}
+
+/* TOS Modal */
+.tos-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.tos-modal.active {
+    display: flex;
+}
+
+.tos-content {
+    background: var(--dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 3rem;
+    position: relative;
+}
+
+.tos-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--gray);
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.tos-close:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--light);
+}
+
+.tos-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.tos-effective {
+    color: var(--gray);
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.tos-section {
+    margin-bottom: 2rem;
+}
+
+.tos-section h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.tos-section p {
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Mobile Menu */
+.mobile-menu-toggle {
+    display: none;
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 1000;
+    background: rgba(24, 24, 27, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--light);
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mobile-menu-toggle span {
+    width: 24px;
+    height: 2px;
+    background: var(--light);
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Remove any text-decoration or border-bottom that causes purple underline */
+.shuffle-text {
+    text-decoration: none;
+    border-bottom: none;
+}
+
+/* If the underline is implemented as ::after or ::before pseudo-element, remove it */
+.shuffle-text::after,
+.shuffle-text::before {
+    display: none;
+}
+
+/* Custom Text Selection */
+::selection {
+    background: var(--primary);
+    color: var(--light);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+::-moz-selection {
+    background: var(--primary);
+    color: var(--light);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* For highlighted code or special elements, alternative style */
+.code ::selection,
+pre ::selection {
+    background: var(--secondary);
+    color: var(--light);
+}
+
+.code ::-moz-selection,
+pre ::-moz-selection {
+    background: var(--secondary);
+    color: var(--light);
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        overflow: auto;
+    }
+
+    .app-container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    /* Mobile Navigation */
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .sidebar {
+        position: fixed;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        width: 85%;
+        max-width: 300px;
+        height: 100vh;
+        z-index: 1000;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: visible;
+    }
+
+    /* Hero adjustments */
+    .hero-section {
+        padding: 6rem 1.5rem 4rem;
+        min-height: 100vh;
+    }
+
+    .title {
+        font-size: clamp(2.5rem, 12vw, 3.5rem);
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Section padding */
+    .services-section,
+    .portfolio-section,
+    .process-section,
+    .contact-section {
+        padding: 4rem 1.5rem;
+    }
+
+    /* Services */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Process */
+    .process-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    /* Contact */
+    .contact-title {
+        font-size: 2rem;
+    }
+
+    .contact-buttons {
+        flex-direction: column;
+    }
+
+    /* Modal adjustments */
+    .tos-content {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+        max-height: 85vh;
+    }
+
+    /* Floating button adjustments */
+    .floating-contact-btn {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+    }
+    
+    .contact-icon {
+        width: 0.875rem;
+        height: 0.875rem;
+    }
+    
+    .contact-separator {
+        height: 0.875rem;
+    }
+    
+    .contact-arrow {
+        width: 0.625rem;
+        height: 0.625rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 5rem 1rem 3rem;
+    }
+
+    .title {
+        font-size: 2.25rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .process-number {
+        font-size: 2.5rem;
+    }
+}

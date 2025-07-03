@@ -1,0 +1,74 @@
+/* Star background styles */
+.star-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    /* Simple gray background matching the site theme */
+    background: #18181b;
+    overflow: hidden;
+}
+
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    background-color: transparent !important;
+}
+
+.hero-section .hero {
+    position: relative;
+    z-index: 10;
+}
+
+/* For the canvas element that Three.js will create */
+.star-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0.8;
+}
+
+/* Simple vignette to soften the edges without gradient */
+.star-container:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: none;  /* remove radial overlay to eliminate faint rings */
+    z-index: 5;
+    pointer-events: none;
+}
+
+.glass-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.03)
+    );
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Make the hero content position relative to appear above the star background */
+#home .hero-content {
+    position: relative;
+    z-index: 2;
+}
+#home .hero-content {
+    position: relative;
+    z-index: 2;
+}

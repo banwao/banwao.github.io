@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>banwao</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="star-background.css" />
+    <link rel="stylesheet" href="animation.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+    <script src="text-shuffle.js"></script>
+    <script src="portfolio.js"></script>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+
+    <!-- Floating Contact Button -->
+    <button class="floating-contact-btn" id="floating-contact-btn">
+        <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+        <div class="contact-separator"></div>
+        <span class="contact-text">contact us</span>
+        <svg class="contact-arrow" stroke-linecap="round" stroke-width="1.5" viewBox="0 0 10 10" stroke="currentColor" fill="none">
+            <path class="arrow-line" stroke-linecap="round" d="M0 5h7"></path>
+            <path class="arrow-path" stroke-linecap="round" d="M1 1l4 4-4 4"></path>
+        </svg>
+    </button>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- TOS Modal -->
+    <div class="tos-modal" id="tos-modal">
+        <div class="tos-content">
+            <button class="tos-close" id="tos-close">x</button>
+            <h2 class="tos-title">terms of service</h2>
+            <p class="tos-effective">effective date: 07/05/2025</p>
+
+            <p>
+                welcome to banwao.site ("we", "us", "our"). by using our
+                website and services, you agree to the following terms of
+                service. please read them carefully before submitting a
+                project idea.
+            </p>
+
+            <div class="tos-section">
+                <h3>1. how we work</h3>
+                <p>
+                    clients submit their website idea or request through our
+                    website. we review all submissions and reserve the right
+                    to accept or reject any idea for any reason, without
+                    explanation.
+                </p>
+            </div>
+
+            <div class="tos-section">
+                <h3>2. quotes and pricing</h3>
+                <p>
+                    if we accept your project, we will send you a
+                    non-negotiable fixed quote. the quote will include all
+                    relevant details of what is included. by agreeing to the
+                    quote, you agree to the scope, timeline, and cost of the
+                    project.
+                </p>
+            </div>
+
+            <div class="tos-section">
+                <h3>3. payment terms</h3>
+                <p>
+                    full payment is required upfront before any work begins.
+                    we do not offer refunds once work has started, unless we
+                    cancel the project ourselves.
+                </p>
+            </div>
+
+            <div class="tos-section">
+                <h3>4. intellectual property</h3>
+                <p>
+                    once full payment is received and the project is
+                    complete, ownership of the final website design and code
+                    (excluding any third-party tools, fonts, or plugins)
+                    will be transferred to you. we retain no rights to the
+                    website itself, but we may use visuals of the project
+                    for promotional purposes (see below).
+                </p>
+            </div>
+
+            <div class="tos-section">
+                <h3>5. client responsibilities</h3>
+                <p>
+                    you agree to provide clear project details, any required
+                    content (text, images, etc.), and feedback promptly.
+                    delays in communication may delay the project timeline.
+                </p>
+            </div>
+
+            <div class="tos-section">
+                <h3>6. our rights</h3>
+                <p>
+                    we may decline to work on a project for any reason,
+                    including but not limited to: content that is unethical,
+                    illegal, offensive, or goes beyond our capacity or
+                    expertise.
+                </p>
+            </div>
+
+            <div class="tos-section">
+                <h3>7. project showcase</h3>
+                <p>
+                    by working with us, you agree that we may publish
+                    screenshots, mockups, or live previews of your completed
+                    project on banwao.site and our social media channels as
+                    part of our public portfolio. if you do not want your
+                    project to be featured, you must notify us immediately.
+                </p>
+            </div>
+
+            <div class="tos-section">
+                <h3>8. limitation of liability</h3>
+                <p>
+                    banwao.site is not liable for any damages resulting from
+                    the use or inability to use your website, including but
+                    not limited to loss of data, revenue, or traffic.
+                </p>
+            </div>
+
+            <div class="tos-section">
+                <h3>9. changes to these terms</h3>
+                <p>
+                    we may update these terms at any time. the most current
+                    version will always be available on our website.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div>
+                <div class="logo">banwao.site</div>
+                <nav class="nav">
+                    <div class="nav-item active" data-section="home">
+                        home
+                    </div>
+                    <div class="nav-item" data-section="services">
+                        services
+                    </div>
+                    <div class="nav-item" data-section="portfolio">
+                        work
+                    </div>
+                    <div class="nav-item" data-section="process">
+                        process
+                    </div>
+                    <div class="nav-item" data-section="contact">
+                        contact
+                    </div>
+                </nav>
+            </div>
+
+            <div class="social">
+                <a href="#" id="tos-link">tos</a>
+                <a href="https://www.instagram.com/banwao.site/" target="_blank">instagram</a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Hero Section -->
+            <section class="hero-section" id="home">
+                <div id="star-container" class="star-container"></div>
+                <div class="hero">
+                    <h1 class="title">
+                        <span><span class="shuffle-text" data-text="coding choro">coding choro</span></span><br />
+                        <span class="title-gradient"><span class="shuffle-text" data-text="idea socho">idea
+                                socho</span><span class="animated-exclamation">!</span></span>
+                    </h1>
+                    <p class="description">
+                        from passion projects to full-blown startups and enterprise platforms, we build websites that
+                        click. pixel-perfect design, snappy code, aur digital experiences jo visitors ko customers
+                        banadete hain. you name it, ham bana lein ge.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section class="services-section" id="services">
+                <div class="section-header">
+                    <h2 class="section-title">services we offer</h2>
+                    <p class="section-desc">
+                        we provide comprehensive web solutions tailored to
+                        your business/personal needs. concept se launch tak, we've
+                        got you covered.
+                    </p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="glow-effect"></div>
+                        <div class="shine"></div>
+                        <h3 class="service-title">custom development</h3>
+                        <p class="service-desc">
+                            tailored websites built from scratch jo aap ke
+                            brand aur business requirements ko perfectly match karein.
+                        </p>
+                    </div>
+                    <div class="service-card">
+                        <div class="glow-effect"></div>
+                        <div class="shine"></div>
+                        <h3 class="service-title">e-commerce solutions</h3>
+                        <p class="service-desc">
+                            powerful online stores with seamless checkout,
+                            inventory management, and payment processing.
+                        </p>
+                    </div>
+                    <div class="service-card">
+                        <div class="glow-effect"></div>
+                        <div class="shine"></div>
+                        <h3 class="service-title">web applications</h3>
+                        <p class="service-desc">
+                            complex web apps with real-time features,
+                            dashboards, and advanced functionality.
+                        </p>
+                    </div>
+                    <div class="service-card">
+                        <div class="glow-effect"></div>
+                        <div class="shine"></div>
+                        <h3 class="service-title">ui/ux design</h3>
+                        <p class="service-desc">
+                            beautiful, intuitive interfaces designed to
+                            engage users and drive conversions.
+                        </p>
+                    </div>
+                    <div class="service-card">
+                        <div class="glow-effect"></div>
+                        <div class="shine"></div>
+                        <h3 class="service-title">
+                            performance optimization
+                        </h3>
+                        <p class="service-desc">
+                            lightning-fast loading times aur bilkul smooth
+                            interactions - best user experience ke lie.
+                        </p>
+                    </div>
+                    <div class="service-card">
+                        <div class="glow-effect"></div>
+                        <div class="shine"></div>
+                        <h3 class="service-title">maintenance & support</h3>
+                        <p class="service-desc">
+                            ongoing updates, security patches, and technical
+                            support to keep your site running smoothly, bina kisi rukawat ke.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Portfolio Section -->
+            <section class="portfolio-section" id="portfolio">
+                <div class="section-header">
+                    <h2 class="section-title">our best work</h2>
+                    <p class="section-desc">
+                        check out some of our recent projects. each one
+                        represents a unique challenge aur uska successful solution (edited for consumer privacy)
+                    </p>
+                </div>
+
+                <div class="portfolio-grid">
+                    <a href="sites/resume.html" target="_blank" class="portfolio-item">
+                        <div class="portfolio-image-container">
+                            <img src="images/resume.png" alt="Resume Website" class="portfolio-image" />
+                        </div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-category">personal</div>
+                            <h3 class="portfolio-title">resume website</h3>
+                            <div class="portfolio-link">visit site →</div>
+                        </div>
+                    </a>
+                    <a href="sites/ratio.html" target="_blank" class="portfolio-item">
+                        <div class="portfolio-image-container">
+                            <img src="images/ratio.png" alt="Ratio Website" class="portfolio-image" />
+                        </div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-category">utility</div>
+                            <h3 class="portfolio-title">
+                                fibonacci ratio project
+                            </h3>
+                            <div class="portfolio-link">visit site →</div>
+                        </div>
+                    </a>
+                    <a href="sites/zayn.html" target="_blank" class="portfolio-item">
+                        <div class="portfolio-image-container">
+                            <img src="images/zayn.png" alt="Zayn Website" class="portfolio-image" />
+                        </div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-category">personal</div>
+                            <h3 class="portfolio-title">3D portfolio</h3>
+                            <div class="portfolio-link">visit site →</div>
+                        </div>
+                    </a>
+                    <a href="sites/blue.html" target="_blank" class="portfolio-item">
+                        <div class="portfolio-image-container">
+                            <img src="images/blue.png" alt="Blue Chocolatier" class="portfolio-image" />
+                        </div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-category">business</div>
+                            <h3 class="portfolio-title">blue chocolatier shop</h3>
+                            <div class="portfolio-link">visit site →</div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Process Section -->
+            <section class="process-section" id="process">
+                <div class="section-header">
+                    <h2 class="section-title">kaam ka kya scene hai?</h2>
+                    <p class="section-desc">
+                        we follow a proven methodology: kaam time pe hota hai, and it exceeds
+                        expectations.
+                    </p>
+                </div>
+
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="process-number">01</div>
+                        <h3 class="process-title">discussion</h3>
+                        <p class="process-desc">
+                            aapke goals, audience aur requirements ko samajhna — taake hum banayein ek strategy jo
+                            perfect ho aapke liye.
+                        </p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-number">02</div>
+                        <h3 class="process-title">development</h3>
+                        <p class="process-desc">
+                            building your website with clean code, AI, and modern
+                            technologies — taake website ho fast, functional, aur future-ready.
+                        </p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-number">03</div>
+                        <h3 class="process-title">launch</h3>
+                        <p class="process-desc">
+                            deploying your site and ensuring everything runs
+                            perfectly.
+                        </p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-number">04</div>
+                        <h3 class="process-title">maintenance</h3>
+                        <p class="process-desc">
+                            aapki marzi ke mutabiq ongoing maintenance aur updates to the website.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="contact-section" id="contact">
+                <div class="contact-content">
+                    <h2 class="contact-title">
+                        make your dreams a reality.
+                    </h2>
+                    <p class="contact-desc">
+                        ready to start? toh bas get in touch! saath mil kar aapke project ko behtareen banaate hain.
+                    </p>
+                    <div class="contact-buttons">
+                        <a href="https://ig.me/m/banwao.site" target="_blank">
+                            <button class="btn btn-primary">
+                                message on instagram
+                            </button>
+                        </a>
+                        <button class="btn btn-ghost" id="email-btn" data-user="contact" data-domain="banwao.site">
+                            send an email
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>
+
+</html>

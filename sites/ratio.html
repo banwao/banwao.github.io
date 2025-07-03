@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Portfolio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            /* Basic Reset */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Variables */
+            :root {
+                --golden-ratio: 1.618;
+                --white: #ffffff;
+                --black: #111111;
+                --dark: #121212;
+                --primary: #f5f5f5;
+                --secondary: #ff6b6b;
+                --tertiary: #48dbfb;
+                --quaternary: #1dd1a1;
+                --quinary: #feca57;
+                --senary: #5f27cd;
+                --text-primary: #f5f5f5;
+                --text-secondary: #121212;
+                --font-primary: "Inter", -apple-system, BlinkMacSystemFont,
+                    "Segoe UI", Roboto, sans-serif;
+            }
+
+            /* Body styles */
+            body {
+                font-family: var(--font-primary);
+                -webkit-font-smoothing: antialiased;
+                overflow: hidden;
+                color: var(--text-primary);
+                transition: background 0.3s ease;
+                background-color: var(--dark);
+                letter-spacing: -0.5px;
+            }
+
+            /* Utilities */
+            .pos-f {
+                position: fixed;
+            }
+
+            .pos-a {
+                position: absolute;
+            }
+
+            .t-0 {
+                top: 0;
+            }
+
+            .l-0 {
+                left: 0;
+            }
+
+            .w-full {
+                width: 100%;
+            }
+
+            .h-full {
+                height: 100%;
+            }
+
+            .bd {
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            /* Background colors */
+            .bg-dark {
+                background-color: var(--dark);
+            }
+
+            .bg-primary {
+                background-color: var(--primary);
+                color: var(--text-secondary);
+            }
+
+            .bg-secondary {
+                background-color: var(--secondary);
+            }
+
+            .bg-tertiary {
+                background-color: var(--tertiary);
+            }
+
+            .bg-quaternary {
+                background-color: var(--quaternary);
+            }
+
+            .bg-quinary {
+                background-color: var(--quinary);
+                color: var(--text-secondary);
+            }
+
+            .bg-senary {
+                background-color: var(--senary);
+            }
+
+            /* Canvas for spiral effect */
+            .spiral-canvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 5;
+                pointer-events: none;
+            }
+
+            /* Sections */
+            .js-section {
+                width: 61.8vw;
+                height: 61.8vw;
+                transform-origin: 72.37% 72.37%;
+                will-change: transform;
+                transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+                display: block;
+                overflow: hidden;
+                border-radius: 0;
+                transition: border-radius 0.3s ease, background 0.3s ease,
+                    box-shadow 0.3s ease;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
+
+            .js-section:hover:not(.active) {
+                border-radius: 4%;
+                box-shadow: 0 15px 60px rgba(0, 0, 0, 0.25);
+            }
+
+            .js-section .content {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 12% 10%;
+                height: 100%;
+                opacity: 0.95;
+                transition: opacity 0.3s ease;
+            }
+
+            .js-section.active .content {
+                opacity: 1;
+            }
+
+            .js-section .header {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .js-section .footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                margin-right: 10%;
+            }
+
+            /* Logo and project logos */
+            .logo,
+            .project-logo {
+                font-size: 1rem;
+                font-weight: 600;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                width: 40%;
+            }
+
+            /* Descriptions */
+            .intro,
+            .project-desc {
+                width: 55%;
+                font-size: 0.95rem;
+                line-height: 1.6;
+                opacity: 0.9;
+                font-weight: 400;
+            }
+
+            /* Title styling */
+            .title {
+                display: flex;
+                flex-direction: column;
+                font-size: 3.2rem;
+                font-weight: 700;
+                margin-right: 2rem;
+                line-height: 0.9;
+                letter-spacing: -1.5px;
+                width: calc(100% - 5rem);
+                margin-bottom: 1rem;
+            }
+
+            .title span {
+                margin-bottom: 0.5rem;
+                white-space: nowrap;
+            }
+
+            /* Scroll and view buttons */
+            .scroll-btn,
+            .view-btn {
+                position: relative;
+                width: 4.5rem;
+                height: 4.5rem;
+                background: rgba(255, 255, 255, 0.9);
+                color: var(--black);
+                border-radius: 3px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .scroll-btn:hover,
+            .view-btn:hover {
+                transform: scale(1.05) translateY(-2px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+
+            .scroll-text,
+            .view-text {
+                font-size: 0.8rem;
+                font-weight: 600;
+                margin-top: 0.6rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            /* Dots navigation */
+            .dots {
+                position: fixed;
+                right: 2.5rem;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 100;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .dot {
+                width: 10px;
+                height: 10px;
+                border: 1px solid var(--white);
+                border-radius: 50%;
+                margin: 0.6rem 0;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .dot:hover {
+                transform: scale(1.2);
+            }
+
+            .dot.active {
+                background: var(--white);
+                transform: scale(1.2);
+            }
+
+            .counter {
+                font-size: 0.8rem;
+                margin-top: 1.5rem;
+                transform: rotate(90deg);
+                white-space: nowrap;
+                opacity: 0.7;
+                letter-spacing: 1px;
+            }
+
+            /* Nav buttons */
+            .nav-buttons {
+                position: fixed;
+                top: 2rem;
+                right: 2.5rem;
+                z-index: 100;
+                display: flex;
+            }
+
+            .nav-button {
+                margin-left: 1.5rem;
+                font-size: 0.9rem;
+                color: var(--white);
+                text-decoration: none;
+                opacity: 0.8;
+                transition: opacity 0.3s ease;
+                font-weight: 500;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+            }
+
+            .nav-button:hover {
+                opacity: 1;
+            }
+
+            /* Eye icon for view button */
+            .eye-icon {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                background: var(--black);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .eye-icon:before {
+                content: "";
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: var(--white);
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .eye-icon:after {
+                content: "";
+                position: absolute;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--black);
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            /* Email icon */
+            .email-icon {
+                width: 24px;
+                height: 24px;
+                position: relative;
+            }
+
+            .email-icon:before {
+                content: "";
+                position: absolute;
+                width: 20px;
+                height: 16px;
+                border: 2px solid var(--black);
+                border-radius: 3px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .email-icon:after {
+                content: "";
+                position: absolute;
+                width: 16px;
+                height: 10px;
+                background: transparent;
+                border-top: 2px solid var(--black);
+                border-left: 2px solid var(--black);
+                border-right: 2px solid var(--black);
+                transform: translateX(-50%) rotateZ(-45deg);
+                top: 6px;
+                left: 50%;
+            }
+
+            /* Animation for spiraling */
+            .is-spiraling .js-spiral {
+                animation: spiral 10s infinite linear;
+            }
+
+            @keyframes spiral {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            /* Media Queries */
+            @media (max-width: 960px) {
+                .js-section {
+                    width: 100vw;
+                    height: 100vw;
+                    transform-origin: center !important;
+                }
+
+                .intro,
+                .project-desc {
+                    display: none;
+                }
+
+                .title {
+                    font-size: 2.2rem;
+                }
+
+                .dots {
+                    right: 1.5rem;
+                }
+
+                .nav-buttons {
+                    top: 1.5rem;
+                    right: 1.5rem;
+                }
+            }
+
+            @media (min-width: 1600px) {
+                .title {
+                    font-size: 4rem;
+                }
+
+                .intro,
+                .project-desc {
+                    font-size: 1.1rem;
+                }
+            }
+
+            /* Custom cursor */
+            html {
+                cursor: none;
+            }
+
+            .custom-cursor {
+                position: fixed;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.5);
+                pointer-events: none;
+                z-index: 9999;
+                mix-blend-mode: difference;
+                transition: transform 0.08s ease-out;
+            }
+
+            .cursor-grow {
+                transform: scale(3);
+                background: rgba(255, 255, 255, 0.2);
+            }
+        </style>
+    </head>
+    <body class="bg-dark">
+        <canvas id="canvas" class="spiral-canvas"></canvas>
+        <div class="js-spiral pos-f t-0 l-0 w-full h-full">
+            <!-- Home section -->
+            <div class="js-section pos-a bg-primary bd active" id="home">
+                <div class="content">
+                    <div class="header">
+                        <div class="logo">PORTFOLIO</div>
+                        <div class="intro">
+                            <p>
+                                Welcome to my portfolio. Scroll down to explore
+                                my journey, accomplishments, and creative
+                                endeavors.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <h1 class="title">
+                            <span>Creative</span>
+                            <span>Design</span>
+                            <span>Portfolio</span>
+                        </h1>
+                        <div class="scroll-btn">
+                            <div class="scroll-text">Scroll</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div
+                class="js-section js-project pos-a bg-secondary"
+                data-project="education"
+            >
+                <div class="content">
+                    <div class="header">
+                        <div class="project-logo">Education</div>
+                        <div class="project-desc">
+                            <p>
+                                My academic journey has shaped my approach to
+                                problem-solving and creative thinking.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <h1 class="title">
+                            <span>Master's</span>
+                            <span>Design</span>
+                            <span>2018-2020</span>
+                        </h1>
+                        <div class="view-btn">
+                            <div class="eye-icon"></div>
+                            <div class="view-text">View</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Awards -->
+            <div
+                class="js-section js-project pos-a bg-tertiary"
+                data-project="awards"
+            >
+                <div class="content">
+                    <div class="header">
+                        <div class="project-logo">Awards</div>
+                        <div class="project-desc">
+                            <p>
+                                Recognition for excellence and innovation in
+                                design and creative problem solving.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <h1 class="title">
+                            <span>Design</span>
+                            <span>Excellence</span>
+                            <span>Awards</span>
+                        </h1>
+                        <div class="view-btn">
+                            <div class="eye-icon"></div>
+                            <div class="view-text">View</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experience -->
+            <div
+                class="js-section js-project pos-a bg-quaternary"
+                data-project="experience"
+            >
+                <div class="content">
+                    <div class="header">
+                        <div class="project-logo">Experience</div>
+                        <div class="project-desc">
+                            <p>
+                                Professional journey through creative industries
+                                and collaborative projects.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <h1 class="title">
+                            <span>Professional</span>
+                            <span>Creative</span>
+                            <span>Journey</span>
+                        </h1>
+                        <div class="view-btn">
+                            <div class="eye-icon"></div>
+                            <div class="view-text">View</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publications -->
+            <div
+                class="js-section js-project pos-a bg-quinary"
+                data-project="publications"
+            >
+                <div class="content">
+                    <div class="header">
+                        <div class="project-logo">Publications</div>
+                        <div class="project-desc">
+                            <p>
+                                Written works and research publications
+                                exploring design theory and practice.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <h1 class="title">
+                            <span>Research</span>
+                            <span>Articles</span>
+                            <span>& Papers</span>
+                        </h1>
+                        <div class="view-btn">
+                            <div class="eye-icon"></div>
+                            <div class="view-text">View</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div
+                class="js-section js-project pos-a bg-senary"
+                data-project="contact"
+            >
+                <div class="content">
+                    <div class="header">
+                        <div class="project-logo">Contact</div>
+                        <div class="project-desc">
+                            <p>
+                                Let's connect and discuss potential
+                                collaborations or opportunities.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <h1 class="title">
+                            <span>Get</span>
+                            <span>In</span>
+                            <span>Touch</span>
+                        </h1>
+                        <div class="view-btn">
+                            <div class="email-icon"></div>
+                            <div class="view-text">Email</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="counter">
+                <span class="current">1</span> / <span class="total">6</span>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="#" class="nav-button">Email</a>
+            <a href="#" class="nav-button">LinkedIn</a>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+        <script>
+            $(function () {
+                // Global variables
+                var WIN = $(window);
+                var BODY = $("body");
+                var sections = $(".js-section");
+                var spiral = $(".js-spiral");
+                var dots = $(".dot");
+
+                var winW = window.innerWidth;
+                var winH = window.innerHeight;
+                var smallScreen = winW < 960;
+                var aspect = 0.618033; // Golden ratio reciprocal
+                var axis = 0.7237;
+                var rotation = 0;
+                var moved = 0;
+                var prevMoved = 0;
+                var animRAF;
+                var spiraling = false;
+                var sectionCount = sections.length;
+                var currentSection = 0;
+
+                // Create custom cursor
+                $("body").append('<div class="custom-cursor"></div>');
+                var cursor = $(".custom-cursor");
+
+                // Initialize
+                resizeHandler();
+                updateDots();
+
+                // Event listeners
+                WIN.on("resize", resizeHandler);
+
+                // Mouse wheel event
+                WIN.on("mousewheel DOMMouseScroll", function (e) {
+                    e.preventDefault();
+                    var deltaY =
+                        e.originalEvent.deltaY ||
+                        -e.originalEvent.wheelDelta ||
+                        e.originalEvent.detail;
+
+                    // Check if trying to scroll beyond first or last section
+                    if (
+                        (currentSection === 0 && deltaY < 0) ||
+                        (currentSection === sectionCount - 1 && deltaY > 0)
+                    ) {
+                        return;
+                    }
+
+                    // Normalize delta (inverted)
+                    moved = deltaY || 0;
+                    rotation += Math.max(-10, Math.min(10, moved / -6));
+
+                    cancelAnimationFrame(animRAF);
+                    startScrollTimeout();
+                    scrollHandler();
+                });
+
+                // Mouse movement for cursor
+                WIN.on("mousemove", function (e) {
+                    // Update custom cursor position
+                    cursor.css({
+                        left: e.clientX,
+                        top: e.clientY,
+                    });
+
+                    // Add subtle parallax effect to active section
+                    if (!smallScreen) {
+                        var activeSection = $(".js-section.active");
+                        var mouseX = e.pageX - winW / 2;
+                        var mouseY = e.pageY - winH / 2;
+
+                        activeSection.find(".content").css({
+                            transform:
+                                "translate(" +
+                                mouseX * -0.01 +
+                                "px, " +
+                                mouseY * -0.01 +
+                                "px)",
+                        });
+                    }
+                });
+
+                // Cursor effects for interactive elements
+                $(".view-btn, .scroll-btn, .dot, .nav-button")
+                    .on("mouseenter", function () {
+                        cursor.addClass("cursor-grow");
+                    })
+                    .on("mouseleave", function () {
+                        cursor.removeClass("cursor-grow");
+                    });
+
+                // Touch events
+                WIN.on("touchstart", function (e) {
+                    var touch =
+                        e.originalEvent.touches[0] ||
+                        e.originalEvent.changedTouches[0];
+                    moved = 0;
+                    prevMoved = 0;
+                    touchStartX = touch.pageX;
+                    touchStartY = touch.pageY;
+                });
+
+                WIN.on("touchmove", function (e) {
+                    e.preventDefault();
+                    var touch =
+                        e.originalEvent.touches[0] ||
+                        e.originalEvent.changedTouches[0];
+                    prevMoved = moved;
+                    var newMoved =
+                        (touch.pageY -
+                            touchStartY +
+                            (touch.pageX - touchStartX) / 2) *
+                        5;
+
+                    // Prevent scrolling up from first section or down from last section
+                    if (currentSection === 0 && newMoved < 0) {
+                        newMoved = 0;
+                    } else if (
+                        currentSection === sectionCount - 1 &&
+                        newMoved > 0
+                    ) {
+                        newMoved = 0;
+                    }
+
+                    moved = newMoved;
+                    touchStartX = touch.pageX;
+                    touchStartY = touch.pageY;
+
+                    rotation += moved / -10;
+                    startScrollTimeout();
+                    cancelAnimationFrame(animRAF);
+                    scrollHandler();
+                });
+
+                WIN.on("touchend", function (e) {
+                    if (prevMoved > 15 && currentSection > 0) {
+                        animateScroll((currentSection - 1) * -90, rotation);
+                    } else if (
+                        prevMoved < -15 &&
+                        currentSection < sectionCount - 1
+                    ) {
+                        animateScroll((currentSection + 1) * -90, rotation);
+                    }
+                });
+
+                // Keyboard events
+                WIN.on("keydown", function (e) {
+                    if (
+                        (e.keyCode === 39 ||
+                            e.keyCode === 40 ||
+                            e.keyCode === 32) &&
+                        currentSection < sectionCount - 1
+                    ) {
+                        // Right, Down, Space - go to next section (only if not on last section)
+                        cancelAnimationFrame(animRAF);
+                        animateScroll((currentSection + 1) * -90, rotation);
+                    } else if (
+                        (e.keyCode === 37 || e.keyCode === 38) &&
+                        currentSection > 0
+                    ) {
+                        // Left, Up - go to previous section (only if not on first section)
+                        cancelAnimationFrame(animRAF);
+                        animateScroll((currentSection - 1) * -90, rotation);
+                    }
+                    scrollHandler();
+                });
+
+                // Click on dots
+                dots.on("click", function () {
+                    var index = $(this).index();
+                    cancelAnimationFrame(animRAF);
+                    animateScroll(index * -90, rotation);
+                });
+
+                // Functions
+                function resizeHandler() {
+                    winW = window.innerWidth;
+                    winH = window.innerHeight;
+                    smallScreen = winW < 960;
+
+                    buildSpiral();
+
+                    // Disable custom cursor on mobile
+                    if (smallScreen) {
+                        $("html").css("cursor", "auto");
+                        cursor.hide();
+                    } else {
+                        $("html").css("cursor", "none");
+                        cursor.show();
+                    }
+                }
+
+                function buildSpiral() {
+                    // Calculate spiral origin points
+                    var spiralOriginX = Math.floor(winW * axis);
+                    var spiralOriginY = Math.floor(winW * aspect * axis);
+
+                    if (smallScreen) {
+                        spiralOriginX = Math.floor(winW / 2);
+                        spiralOriginY = Math.floor(winH / 2);
+                    }
+
+                    // Set transform origin for spiral
+                    spiral.css({
+                        transformOrigin:
+                            spiralOriginX + "px " + spiralOriginY + "px",
+                    });
+
+                    // Update total sections count
+                    $(".total").text(sectionCount);
+
+                    // Position each section in the spiral
+                    sections.each(function (i) {
+                        var myRot = Math.floor(90 * i);
+                        var scale = Math.pow(aspect, i);
+
+                        $(this).css({
+                            width: winW * aspect,
+                            height: winW * aspect,
+                            transformOrigin:
+                                spiralOriginX + "px " + spiralOriginY + "px",
+                            transform:
+                                "rotate(" + myRot + "deg) scale(" + scale + ")",
+                        });
+                    });
+
+                    // Initial scroll handling
+                    scrollHandler();
+                }
+
+                function scrollHandler() {
+                    // Calculate scale based on rotation
+                    var scale = Math.pow(aspect, rotation / 90);
+
+                    // Determine current section
+                    currentSection = Math.min(
+                        sectionCount - 1,
+                        Math.max(0, Math.floor((rotation - 30) / -90))
+                    );
+
+                    // Apply transform to spiral
+                    spiral.css({
+                        transform:
+                            "rotate(" + rotation + "deg) scale(" + scale + ")",
+                    });
+
+                    // Update dot navigation
+                    updateDots();
+
+                    // Check if spiraling out of bounds
+                    if (currentSection < 0) {
+                        spiraling = "white";
+                        BODY.addClass("is-spiraling");
+                    } else if (currentSection > sectionCount - 1) {
+                        spiraling = "black";
+                        BODY.addClass("is-spiraling");
+                    } else {
+                        spiraling = false;
+                        BODY.removeClass("is-spiraling");
+                    }
+
+                    // Update sections visibility
+                    sections.each(function (i) {
+                        if (i - currentSection < -1) {
+                            $(this).css({ display: "none" });
+                        } else {
+                            $(this).css({ display: "block" });
+                        }
+                    });
+
+                    // Update active section
+                    sections.removeClass("active");
+                    sections.eq(currentSection).addClass("active");
+
+                    // Update counter
+                    $(".current").text(currentSection + 1);
+                }
+
+                function animateScroll(targR, startR, speed) {
+                    var distance = startR - targR;
+                    var mySpeed = speed || 0.2;
+
+                    if (
+                        ((targR || Math.abs(targR) === 0) &&
+                            Math.abs(targR - rotation) > 0.1) ||
+                        (Math.abs(moved) > 1 &&
+                            Math.abs(targR - rotation) > 0.1)
+                    ) {
+                        if (targR || Math.abs(targR) === 0) {
+                            rotation += mySpeed * (targR - rotation);
+                        } else {
+                            moved *= 0.98;
+                            rotation += moved / -10;
+                        }
+
+                        // Trim rotation to reasonable bounds
+                        rotation = Math.max(-1000, Math.min(1000, rotation));
+
+                        scrollHandler();
+                        animRAF = requestAnimationFrame(function () {
+                            animateScroll(targR, startR, speed);
+                        });
+                    } else if (targR || Math.abs(targR) === 0) {
+                        cancelAnimationFrame(animRAF);
+                        rotation = targR;
+                        rotation = Math.max(-1000, Math.min(1000, rotation));
+                        scrollHandler();
+                    }
+                }
+
+                function startScrollTimeout() {
+                    // Start a timeout to animate to the nearest section after scrolling stops
+                    clearTimeout(window.scrollTimeout);
+                    if (currentSection > -1 && currentSection < sectionCount) {
+                        window.scrollTimeout = setTimeout(function () {
+                            cancelAnimationFrame(animRAF);
+                            animateScroll(currentSection * -90, rotation, 0.15);
+                        }, 200);
+                    }
+                }
+
+                function updateDots() {
+                    dots.removeClass("active");
+                    if (currentSection >= 0 && currentSection < sectionCount) {
+                        dots.eq(currentSection).addClass("active");
+                    }
+                }
+
+                // Initialize the canvas for spiral animation
+                var canvas = document.getElementById("canvas");
+                var ctx = canvas.getContext("2d");
+
+                function sizeCanvas() {
+                    canvas.width = winW;
+                    canvas.height = winH;
+                }
+
+                sizeCanvas();
+                WIN.on("resize", sizeCanvas);
+
+                function drawSpiral() {
+                    if (spiraling) {
+                        requestAnimationFrame(function () {
+                            ctx.clearRect(0, 0, winW, winH);
+                            // Draw spiral animation here if needed
+                        });
+                    } else {
+                        ctx.clearRect(0, 0, winW, winH);
+                    }
+                }
+
+                // Draw spiral animation when needed
+                WIN.on("wheel touchmove keydown", drawSpiral);
+
+                // On page load animation
+                function introAnimation() {
+                    gsap.from(".js-section.active .title span", {
+                        duration: 1,
+                        y: 100,
+                        opacity: 0,
+                        stagger: 0.1,
+                        ease: "power3.out",
+                        delay: 0.5,
+                    });
+
+                    gsap.from(".js-section.active .intro", {
+                        duration: 1,
+                        y: 30,
+                        opacity: 0,
+                        ease: "power3.out",
+                        delay: 1,
+                    });
+
+                    gsap.from(".scroll-btn", {
+                        duration: 0.7,
+                        scale: 0,
+                        ease: "back.out(1.7)",
+                        delay: 1.2,
+                    });
+
+                    gsap.from(".dots", {
+                        duration: 0.7,
+                        opacity: 0,
+                        x: 30,
+                        ease: "power3.out",
+                        delay: 1.3,
+                    });
+
+                    gsap.from(".nav-buttons", {
+                        duration: 0.7,
+                        opacity: 0,
+                        y: -20,
+                        ease: "power3.out",
+                        delay: 1.3,
+                    });
+                }
+
+                // Run intro animation
+                introAnimation();
+            });
+        </script>
+    </body>
+</html>
